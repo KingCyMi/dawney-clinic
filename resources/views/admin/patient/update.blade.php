@@ -35,10 +35,19 @@
                     </span>
                 @enderror
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
                 <label for="">Color</label>
                 <input type="text" name="color" class="form-control @error('color') is-invalid @enderror" value="{{ $patient->color }}">
                 @error('color')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group col-md-3">
+                <label for="">Breed</label>
+                <input type="text" name="breed" class="form-control @error('breed') is-invalid @enderror" value="{{ $patient->breed }}">
+                @error('breed')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

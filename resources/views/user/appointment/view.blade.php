@@ -30,6 +30,10 @@
                             <td>{{ $appointment->pet->species_name }}</td>
                         </tr>
                         <tr>
+                            <td scope="row" width="20%">Breed:</td>
+                            <td>{{ $appointment->pet->breed }}</td>
+                        </tr>
+                        <tr>
                             <td scope="row" width="20%">Birth Date:</td>
                             <td>{{ $appointment->pet->birth_date }}</td>
                         </tr>

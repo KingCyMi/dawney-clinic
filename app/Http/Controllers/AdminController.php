@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Mail\UserPassword;
+use App\Order;
+use App\OrderProduct;
 use App\Owner;
 use App\Pet;
 use App\PetRecord;
+use App\Product;
+use App\ProductStock;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -67,6 +72,7 @@ class AdminController extends Controller{
             'gender' => 'required',
             'color' => 'required',
             'species' => 'required',
+            'breed' => 'required',
             'date_birth' => 'required|date',
         ]);
 
@@ -76,6 +82,7 @@ class AdminController extends Controller{
             'gender' => $request->gender,
             'color' => $request->color,
             'species' => $request->species,
+            'breed' => $request->breed,
             'birth_date' => Carbon::parse($request->date_birth),
         ]);
 
@@ -107,7 +114,6 @@ class AdminController extends Controller{
             'contact_number' => ['required', 'string', 'max:11', 'regex:/^(09)\d{9}$/'],
             'address' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,id,'. $user->id],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         // dd($request->is_admin);
@@ -147,6 +153,7 @@ class AdminController extends Controller{
             'gender' => 'required',
             'color' => 'required',
             'species' => 'required',
+            'breed' => 'required',
             'date_birth' => 'required|date',
             'first_name' => 'required',
             'last_name' => 'required',
@@ -176,6 +183,7 @@ class AdminController extends Controller{
             'gender' => $request->gender,
             'color' => $request->color,
             'species' => $request->species,
+            'breed' => $request->breed,
             'birth_date' => Carbon::parse($request->date_birth),
         ]);
 
@@ -206,6 +214,7 @@ class AdminController extends Controller{
             'gender' => 'required',
             'color' => 'required',
             'species' => 'required',
+            'breed' => 'required',
             'date_birth' => 'required|date'
         ]);
 
@@ -268,9 +277,127 @@ class AdminController extends Controller{
 
     }
 
-    // patients - create / update
-    // appointment - list  (callendar)
-    // users/owner - update d
-    //
+    public function inventoryList(){
+        $products = Product::latest()->with(['stocks'])->paginate(20);
 
+        return view('admin.inventory.list', compact('products'));
+    }
+
+    public function inventoryCreate(){
+        return view('admin.inventory.create');
+    }
+
+    public function inventoryCreateStore(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+        ]);
+
+        $product = Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+        ]);
+
+        return redirect()->route('admin.inventory.create')->with([
+            'status' => true,
+            'message' => 'Successfully added'
+        ]);
+
+    }
+
+    public function inventoryUpdate($id){
+        $product = Product::with('stocks')->findOrFail($id);
+
+        return view('admin.inventory.update', compact('product'));
+    }
+
+    public function inventoryUpdatePost(Request $request, $id){
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'numeric|nullable',
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+        ]);
+
+        if($request->has('stock') && $request->stock != 0){
+            ProductStock::create([
+                'product_id' => $product->id,
+                'stock' => $request->stock,
+                'quantity' => $request->stock
+            ]);
+        }
+
+        return redirect()->route('admin.inventory.update', $product->id)->with([
+            'status' => true,
+            'message' => 'Successfully updated'
+        ]);
+    }
+
+    public function purchaseCreate(){
+        $products = Product::all();
+
+        return view('admin.order.purchase', compact('products'));
+    }
+
+    public function purchaseCreatePost(Request $request){
+
+        if(count($request->products) == 0){
+            return response()->json([
+                'status' => false,
+                'message' => 'Please add products first',
+            ]);
+        }
+
+        $order = Order::create([
+            'name' => $request->name,
+            'paid_price' => 0
+        ]);
+
+        $total = 0;
+
+        foreach($request->products as $product){
+            $prod = Product::where('id', $product['productID'])->first();
+            $sub = $prod->price * $product['productQuantity'];
+
+            $stock = $prod->stocks->where('stock', '!=', 0)->first();
+            $stock->stock = $stock->stock - $product['productQuantity'];
+            $stock->save();
+
+            OrderProduct::create([
+                'product_id' => $prod->id,
+                'order_id' => $order->id,
+                'quantity' => $product['productQuantity'],
+                'total_price' => $total
+            ]);
+
+            $total+= $sub;
+        }
+
+        $order->paid_price = $total;
+        $order->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully ordered',
+            'orderID' => $order->id
+        ]);
+    }
+
+    public function orderList(){
+        $orders = Order::latest()->paginate(20);
+
+        return view('admin.order.list', compact('orders'));
+    }
+
+    public function orderView($id){
+        $order = Order::with('products')->findOrFail($id);
+
+        return view('admin.order.view', compact('order'));
+    }
 }

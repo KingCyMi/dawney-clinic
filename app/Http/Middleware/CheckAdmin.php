@@ -20,8 +20,10 @@ class CheckAdmin
             if($user->is_admin){
                 return $next($request);
             }else{
-                abort(401);
+                return abort(401);
             }
+        }else{
+            return redirect('/login');
         }
     }
 }

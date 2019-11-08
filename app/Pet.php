@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Pet extends Model
 {
     protected $fillable = [
-        'owner_id', 'name', 'birth_date', 'gender', 'color', 'species',
+        'owner_id', 'name', 'birth_date', 'gender', 'color', 'species', 'breed',
     ];
     protected $dates = ['birth_date'];
 
     const GENDER = ['Male', 'Female'];
 
-    const SPECIES = ['Bovine', 'Camelid', 'Carine', 'Caprine', 'Cavies', 'Cervidae', 'Equine', 'Feline', 'Lapine', 'Murine', 'Ovine', 'Piscine', 'Porcine'];
+    const SPECIES = ['Bovine', 'Camelid', 'Canine', 'Caprine', 'Cavies', 'Cervidae', 'Equine', 'Feline', 'Lapine', 'Murine', 'Ovine', 'Piscine', 'Porcine'];
 
     public function owner(){
         return $this->belongsTo(Owner::class);

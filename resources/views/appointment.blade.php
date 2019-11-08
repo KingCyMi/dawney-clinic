@@ -25,13 +25,22 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="">Gender</label>
                             <select name="gender" class="form-control @error('gender') is-invalid @enderror">
                                 <option value="1">Male</option>
                                 <option value="2">Female</option>
                             </select>
                             @error('gender')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Breed</label>
+                            <input type="text" name="breed" class="form-control @error('breed') is-invalid @enderror" value="{{ old('breed') }}">
+                            @error('breed')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -33,6 +33,10 @@
                                 <td>{{ $patient->species_name }}</td>
                             </tr>
                             <tr>
+                                <td scope="row" width="20%">Breed:</td>
+                                <td>{{ $patient->breed }}</td>
+                            </tr>
+                            <tr>
                                 <td scope="row" width="20%">Birth Date:</td>
                                 <td>{{ $patient->birth_date->toDateString() }}</td>
                             </tr>
