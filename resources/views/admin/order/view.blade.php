@@ -12,6 +12,10 @@
                             <td scope="row">Name</td>
                             <td>{{ $order->name }}</td>
                         </tr>
+                        <tr>
+                            <td scope="row">Purchase Date</td>
+                            <td>{{ $order->created_at->format('M d Y h:i a') }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
