@@ -116,11 +116,9 @@ class AdminController extends Controller{
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,id,'. $user->id],
         ]);
 
-        // dd($request->is_admin);
-
         $user->update([
             'email' => $request->email,
-            'is_admin' => $request->is_admin ? $request->is_admin : false
+            'is_admin' => $request->is_admin ? true : false
         ]);
 
         $user->owner->update([

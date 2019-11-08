@@ -108,6 +108,69 @@
         <main>
             @yield('main')
         </main>
+
+    <footer class="kilimanjaro_area">
+        <!-- Top Footer Area Start -->
+        <div class="foo_top_header_one section_padding_100_70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="kilimanjaro_part">
+                            <h5>About Us</h5>
+                            <p>We specialize in surgery and personalized pet care. If you have a new puppy or kitten, we are here to guide you along the way and recommend the appropriate vaccinations as well as when to spay or neuter your pet. We are an exceptional facility with state of the art veterinary equipment which we utilize to facilitate the very best care for your pets.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="kilimanjaro_part">
+                            <h5>Where to find us?</h5>
+                            <p>80 Perpetual Help St, Penafrancia Ave, Naga City, Camarines Sur 4400 Philippines <br>
+                                <a href="https://www.google.com/maps/place/Dawney+Animal+Clinic+Naga/@13.6364404,123.1971054,16z/data=!4m5!3m4!1s0x0:0xc42df55ec764f9d!8m2!3d13.6356107!4d123.1977405">Google Maps</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="kilimanjaro_part">
+                            <h5>Social Links</h5>
+                            <ul class="kilimanjaro_social_links">
+                                <li><a href="https://www.facebook.com/Dawney-Animal-Clinic-Naga-469007536828530/"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="kilimanjaro_part">
+                            <h5>Quick Contact</h5>
+                            <div class="kilimanjaro_single_contact_info">
+                                <h5 class="mb-2">Veterinarian:</h5>
+                                <p>
+                                    <a href="https://www.thefilipinovet.com/veterinarians/dawney-maria-kathleen-ranola-2014003425/">
+                                        Maria Kathleen R. Dawney, D.V.M.
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="kilimanjaro_single_contact_info">
+                                <h5 class="mb-2">Phone:</h5>
+                                <p>+639 95 971 5245</p>
+                            </div>
+                            <div class="kilimanjaro_single_contact_info">
+                                <h5 class="mb-2">Email:</h5>
+                                <p>support@dawneyanimalclinic.xyz<br> emergency@dawneyanimalclinic.xyz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom Area Start -->
+        <div class=" kilimanjaro_bottom_header_one section_padding_50 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p>© All Rights Reserved by <a href="#">{{ config('app.name')}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     </div>
     @yield('script')
 </body>
