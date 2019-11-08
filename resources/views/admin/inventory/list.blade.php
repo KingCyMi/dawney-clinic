@@ -15,7 +15,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Product Name</th>
                         <th>Stock</th>
                         <th>Action</th>
                     </tr>

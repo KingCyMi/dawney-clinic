@@ -19,7 +19,7 @@ class CreatePetRecordsTable extends Migration
             $table->string('temperature');
             $table->string('weight');
             $table->string('procedure');
-            $table->text('comments');
+            $table->text('comments')->nullable();
             $table->timestamps();
         });
     }
