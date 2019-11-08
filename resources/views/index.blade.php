@@ -24,7 +24,7 @@
                     <h2>Our Values</h2><br>
                     <h4><strong>MISSION:</strong> Our mission it to help customers' pets live long, happy and healthy lives. We believe that a key element to a healthy pet is a great relationship with your veterinarian. Everyone at Dawney Animal Clinic is committed to professional, caring, personalized service. We takes our pride in our dedication to the highest standards in veterinary medicine. We have a full-service clinic offering state-of-the-art veterinary medical technology.
                     </h4><br>
-                    <p><strong>VISION:</strong> DAC aims to ensure that we are recognized by our offering of a full range medical services to the pets, and providing the highest standards in veterinary medicine.</p>
+                    <h4><strong>VISION:</strong> DAC aims to ensure that we are recognized by our offering of a full range medical services to the pets, and providing the highest standards in veterinary medicine.</h4>
                 </div>
             </div>
         </div>
