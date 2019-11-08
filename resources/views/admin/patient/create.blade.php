@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="">Breed</label>
-                    <input type="text" name="color" class="form-control @error('breed') is-invalid @enderror" value="{{ old('breed') }}">
+                    <input type="text" name="breed" class="form-control @error('breed') is-invalid @enderror" value="{{ old('breed') }}">
                     @error('breed')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
