@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+
+    @if (session('status') || session('message'))
+        <div class="alert {{ session('status') ? 'alert-success' : 'alert-danger'}}">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="card mb-3">
         <div class="card-header">
             Patient Info - {{ $patient->name }}

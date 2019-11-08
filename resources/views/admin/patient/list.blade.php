@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">
             <div class="float-right">
-                <a href="{{ route('admin.patient.create') }}" class="btn btn-sm btn-success">Add Patient</a>
+                <a href="{{ route('admin.patient.create') }}" class="btn btn-sm btn-success">Add Client</a>
             </div>
             <div class="pt-1">
                 Patient List

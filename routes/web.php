@@ -50,6 +50,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'AdminController@userList')->name('admin.user.list');
+        Route::get('/{id}/patient/create', 'AdminController@userCreatePatient')->name('admin.user.patient.create');
+        Route::post('/{id}/patient/create', 'AdminController@userCreatePatientPost')->name('admin.user.patient.create.post');
         Route::get('/{id}', 'AdminController@userUpdate')->name('admin.user.update');
         Route::post('/{id}', 'AdminController@userUpdatePost')->name('admin.user.update.post');
     });

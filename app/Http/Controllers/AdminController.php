@@ -55,6 +55,37 @@ class AdminController extends Controller{
         ]);
     }
 
+    public function userCreatePatient(){
+        return view('admin.user.createPatient');
+    }
+
+    public function userCreatePatientPost(Request $request, $id){
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'color' => 'required',
+            'species' => 'required',
+            'date_birth' => 'required|date',
+        ]);
+
+        $pet = Pet::create([
+            'owner_id' => $user->owner->id,
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'color' => $request->color,
+            'species' => $request->species,
+            'birth_date' => Carbon::parse($request->date_birth),
+        ]);
+
+        return redirect()->route('admin.patient.view', $pet->id)->with([
+            'status' => true,
+            'message' => 'Successfully added patient'
+        ]);
+
+    }
+
     public function userList(){
         $users = User::with('owner')->paginate(20);
 

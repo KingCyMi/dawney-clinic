@@ -24,6 +24,7 @@
                     <td>{{ $user->created_at->toDateTimeString() }}</td>
                     <td>
                         <a href="{{ route('admin.user.update', $user->id) }}" class="btn btn-sm btn-primary">Update</a>
+                        <a href="{{ route('admin.user.patient.create', $user->id) }}" class="btn btn-sm btn-success">Add Patient</a>
                     </td>
                 </tr>
                 @endforeach
