@@ -21,7 +21,7 @@
                     <!-- Single event in a single day -->
                     @foreach ($appointments as $appointment)
 
-                        <tr>
+                        <tr class="{{ $appointment[0]->appointment_start->format('Y-m-d') == Carbon\Carbon::now()->format('Y-m-d') ? 'table-success' : '' }}">
                             <td class="agenda-date" class="active" rowspan="{{ count($appointment) }}">
                                 <div class="dayofmonth">{{ $appointment[0]->appointment_start->day }}</div>
                                 <div class="dayofweek">{{ $appointment[0]->appointment_start->format('l') }}</div>
@@ -40,12 +40,12 @@
                                 </div>
                             </td>
                             <td class="agenda-message">
-                                {{ $first->reason }}
+                                {{ $first->reason ?? '-' }}
                             </td>
                         </tr>
                         @foreach ($appointment as $key => $appoint)
                             @if($key != 0)
-                                <tr>
+                                <tr class="{{ $appoint->appointment_start->format('Y-m-d') == Carbon\Carbon::now()->format('Y-m-d') ? 'table-success' : '' }}">
                                     <td class="agenda-time">
                                         {{ $appoint->appointment_start->format('h:i A') }} - {{ $appoint->appointment_end->format('h:i A') }}
                                     </td>

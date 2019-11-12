@@ -28,6 +28,8 @@ class AdminController extends Controller{
 
         $appointments = Appointment::where('appointment_start', '>=', Carbon::now())->get()->groupBy(function($q){
             return $q->appointment_start->day;
+        })->sortBy(function($item){
+            return $item[0]->appointment_start;
         });
 
         return view('admin.dashboard', compact('appointments'));

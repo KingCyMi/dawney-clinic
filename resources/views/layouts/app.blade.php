@@ -134,6 +134,12 @@
                             <ul class="kilimanjaro_social_links">
                                 <li><a href="https://www.facebook.com/Dawney-Animal-Clinic-Naga-469007536828530/"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a></li>
                             </ul>
+
+                            <div class="kilimanjaro_single_contact_info mt-3">
+                                <h5 class="mb-2">Store Hours:</h5>
+                                <p class="mb-0">Monday to Saturday</p>
+                                <p>8:00AM - 5:00PM</p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3">
