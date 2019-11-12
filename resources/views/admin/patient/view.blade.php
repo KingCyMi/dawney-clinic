@@ -17,6 +17,10 @@
                     <table class="table mb-0">
                         <tbody>
                             <tr>
+                                <td scope="row" width="20%">ID:</td>
+                                <td>{{ $patient->id }}</td>
+                            </tr>
+                            <tr>
                                 <td scope="row" width="20%">Name:</td>
                                 <td>{{ $patient->name }}</td>
                             </tr>

@@ -35,7 +35,7 @@
                         </tr>
                         <tr>
                             <td scope="row" width="20%">Birth Date:</td>
-                            <td>{{ $appointment->pet->birth_date }}</td>
+                            <td>{{ $appointment->pet->birth_date->format('M d Y') }}</td>
                         </tr>
                     </tbody>
                 </table>

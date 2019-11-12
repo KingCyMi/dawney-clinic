@@ -23,37 +23,61 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.dashboard',
+                    ]) ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.dashboard') }}">
                             Home
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.user.list',
+                        'admin.user.update',
+                        'admin.user.patient.create',
+                    ]) ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.user.list') }}">
                             Users
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.patient.list',
+                        'admin.patient.view',
+                        'admin.patient.update',
+                        'admin.patient.create',
+                        'admin.patient.record.create',
+                        'admin.patient.record.view',
+                    ]) ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.patient.list') }}">
                             Patients
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.appointment.list',
+                    ]) ? 'active' : '' }}">
                         <a href="{{ route('admin.appointment.list') }}" class="nav-link">
                             Appointments
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.inventory.list',
+                        'admin.inventory.create',
+                        'admin.inventory.update',
+                    ]) ? 'active' : '' }}">
                         <a href="{{ route('admin.inventory.list') }}" class="nav-link">
                             Inventory
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.purchase.create',
+                    ]) ? 'active' : '' }}">
                         <a href="{{ route('admin.purchase.create') }}" class="nav-link">
                             Place Order
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                        'admin.order.list',
+                        'admin.order.view',
+                    ]) ? 'active' : '' }}">
                         <a href="{{ route('admin.order.list') }}" class="nav-link">
                             Orders
                         </a>

@@ -14,7 +14,7 @@
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['verified']], function () {
     Route::get('/appoint', 'AppointmentController@create')->name('appointment.create');
     Route::post('/make/appoint', 'AppointmentController@store')->name('appointment.store');
 
@@ -36,9 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'AdminController@dashboard')->name('admin.dashboard');

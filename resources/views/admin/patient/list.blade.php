@@ -15,6 +15,7 @@
             <table class="table mb-0">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Pet Name</th>
                         <th>Owner</th>
                         <th>Species</th>
@@ -25,6 +26,7 @@
                 <tbody>
                     @foreach ($pets as $pet)
                         <tr>
+                            <td scope="row">{{ $pet->id }}</td>
                             <td scope="row">{{ $pet->name }}</td>
                             <td scope="row">{{ $pet->owner->full_name }}</td>
                             <td>{{ $pet->species_name }}</td>

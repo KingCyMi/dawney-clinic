@@ -7,6 +7,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Gender</th>
                         <th>Species</th>
@@ -16,6 +17,7 @@
                 <tbody>
                     @foreach ($pets as $pet)
                         <tr>
+                            <td scope="row">{{ $pet->id }}</td>
                             <td scope="row">{{ $pet->name }}</td>
                             <td>{{ $pet->gender_name }}</td>
                             <td>{{ $pet->species_name }}</td>

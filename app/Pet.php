@@ -13,7 +13,9 @@ class Pet extends Model
 
     const GENDER = ['Male', 'Female'];
 
-    const SPECIES = ['Bovine', 'Camelid', 'Canine', 'Caprine', 'Cavies', 'Cervidae', 'Equine', 'Feline', 'Lapine', 'Murine', 'Ovine', 'Piscine', 'Porcine'];
+    // const SPECIES = ['Bovine', 'Camelid', 'Canine', 'Caprine', 'Cavies', 'Cervidae', 'Equine', 'Feline', 'Lapine', 'Murine', 'Ovine', 'Piscine', 'Porcine'];
+
+    const SPECIES = ['Dog', 'Cat'];
 
     public function owner(){
         return $this->belongsTo(Owner::class);
@@ -32,6 +34,6 @@ class Pet extends Model
     }
 
     public function getSpeciesNameAttribute(){
-        return self::SPECIES[$this->species - 1];
+        return self::SPECIES[$this->species - 1] ?? $this->species;
     }
 }
