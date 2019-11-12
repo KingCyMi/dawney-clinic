@@ -30,6 +30,7 @@
                     </span>
                 @enderror
             </div>
+            @if($user->id != 1)
             <div class="form-group col-md-4">
                 <label for="">-</label>
                 <div class="form-check mt-2 @error('last_name') is-invalid @enderror">
@@ -43,6 +44,7 @@
                     </span>
                 @enderror
             </div>
+            @endif
             <div class="form-group col-md-6">
                 <label for="">Contact Number</label>
                 <input type="text" name="contact_number" class="form-control @error('contact_number') is-invalid @enderror" value="{{ $user->owner->contact_number }}">
