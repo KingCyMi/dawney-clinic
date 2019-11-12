@@ -54,19 +54,9 @@
                 <div class="form-group col-md-6">
                     <label for="">Species</label>
                     <select name="species" class="form-control @error('species') is-invalid @enderror">
-                        <option value="1">Bovine</option>
-                        <option value="2">Camelid</option>
-                        <option value="3">Canine</option>
-                        <option value="4">Caprine</option>
-                        <option value="5">Cavies</option>
-                        <option value="6">Cervidae</option>
-                        <option value="7">Equine</option>
-                        <option value="8">Feline</option>
-                        <option value="9">Lapine</option>
-                        <option value="10">Murine</option>
-                        <option value="11">Ovine</option>
-                        <option value="12">Piscine</option>
-                        <option value="13">Porcine</option>
+                        @foreach (App\Pet::SPECIES as $species)
+                            <option value="{{ $loop->iteration }}">{{ $species }}</option>
+                        @endforeach
                     </select>
                     @error('species')
                         <span class="invalid-feedback" role="alert">

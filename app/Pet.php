@@ -15,7 +15,7 @@ class Pet extends Model
 
     // const SPECIES = ['Bovine', 'Camelid', 'Canine', 'Caprine', 'Cavies', 'Cervidae', 'Equine', 'Feline', 'Lapine', 'Murine', 'Ovine', 'Piscine', 'Porcine'];
 
-    const SPECIES = ['Dog', 'Cat'];
+    const SPECIES = ['Canine (Dog)', 'Feline (Cat)'];
 
     public function owner(){
         return $this->belongsTo(Owner::class);

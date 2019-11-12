@@ -60,7 +60,7 @@
                 <a href="{{ route('admin.patient.record.create', $patient->id) }}" class="btn btn-sm btn-success">Add New Record</a>
             </div>
             <div class="pt-1">
-                Patient Record
+                Patient History
             </div>
         </div>
         <div class="card-body p-0">

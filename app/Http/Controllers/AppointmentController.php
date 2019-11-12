@@ -7,31 +7,55 @@ use App\Pet;
 use Carbon\Carbon;
 use Nexmo\Laravel\Facade\Nexmo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AppointmentController extends Controller{
 
     public function create(){
-        return view('appointment');
+        $user = auth()->user();
+        $pets = Pet::where('owner_id', $user->owner->id)->get();
+
+        return view('appointment', compact('pets'));
     }
 
     public function store(Request $request){
-        $request->validate([
-            'name' => 'required',
-            'gender' => 'required',
-            'color' => 'required',
-            'breed' => 'required',
-            'species' => 'required',
-            'date_birth' => 'required|date',
+        // $request->validate([
+        //     'pet_id' => 'required_without:name,gender,color,breed,species,date_birth',
+        //     'name' => ['required_without:pet_id'],
+        //     'gender' => 'required_without:pet_id',
+        //     'color' => 'required_without:pet_id',
+        //     'breed' => 'required_without:pet_id',
+        //     'species' => 'required_without:pet_id',
+        //     'date_birth' => ['required_without:pet_id', 'nullable', 'date'],
+        //     'appointment_time' => 'required|date',
+        //     'message' => 'nullable',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'pet_id' => 'required_without:name,gender,color,breed,species,date_birth',
+            'name' => ['required_without:pet_id'],
+            'gender' => 'required_without:pet_id',
+            'color' => 'required_without:pet_id',
+            'breed' => 'required_without:pet_id',
+            'species' => 'required_without:pet_id',
+            'date_birth' => ['required_without:pet_id', 'nullable', 'date'],
             'appointment_time' => 'required|date',
             'message' => 'nullable',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('appointment.create', ['', $request->pet_id ? '#pet' : '#new'])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
 
         $start_time = Carbon::parse($request->appointment_time);
         $end_time = Carbon::parse($request->appointment_time)->addMinutes(30);
 
         if($start_time->lt(Carbon::now())){
-            return redirect()->route('appointment.create')->with([
+            return redirect()->route('appointment.create', ['', $request->pet_id ? '#pet' : '#new'])->with([
                 'status' => false,
                 'message' => 'Time must be in the future not in the past'
             ]);
@@ -73,16 +97,19 @@ class AppointmentController extends Controller{
 
         $user = $request->user();
 
-
-        $pet = Pet::create([
-            'owner_id' => $user->owner->id,
-            'name' => $request->name,
-            'gender' => $request->gender,
-            'breed' => $request->breed,
-            'color' => $request->color,
-            'species' => $request->species,
-            'birth_date' => Carbon::parse($request->date_birth),
-        ]);
+        if($request->pet_id){
+            $pet = Pet::find($request->pet_id);
+        }else{
+            $pet = Pet::create([
+                'owner_id' => $user->owner->id,
+                'name' => $request->name,
+                'gender' => $request->gender,
+                'breed' => $request->breed,
+                'color' => $request->color,
+                'species' => $request->species,
+                'birth_date' => Carbon::parse($request->date_birth),
+            ]);
+        }
 
         Appointment::create([
             'user_id' => $user->id,
