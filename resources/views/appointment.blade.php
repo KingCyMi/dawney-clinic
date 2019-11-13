@@ -161,7 +161,7 @@
 @section('script')
     <script>
         $('#datetimepicker1').datetimepicker({
-            // minDate: new Date().toDateString(),
+            minDate: new Date().toDateString(),
             daysOfWeekDisabled : [0],
             format: 'L',
         });
