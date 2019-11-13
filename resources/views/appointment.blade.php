@@ -12,7 +12,7 @@
                             {{ session('message') }}
                         </div>
                     @endif
-                    <form action="{{ route('appointment.store') }}" method="POST" class="row">
+                    <form action="{{ route('appointment.store') }}" method="POST" class="row" autocomplete="off">
                         <div class="form-group col-md-12">
                             Pet Information
                         </div>
@@ -114,7 +114,7 @@
                         <div class="form-group col-md-12">
                             <hr>
                         </div>
-                            <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="">Appointment Time</label>
                             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                                 <input type="text" name="appointment_time" class="form-control @error('appointment_time') is-invalid @enderror datetimepicker-input" data-target="#datetimepicker1">
@@ -126,6 +126,12 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Time Available</label>
+                            <div class="times row">
+
                             </div>
                         </div>
                         <div class="form-group col-md-12">
@@ -155,13 +161,45 @@
 @section('script')
     <script>
         $('#datetimepicker1').datetimepicker({
-            minDate: new Date(),
+            // minDate: new Date().toDateString(),
             daysOfWeekDisabled : [0],
-        });
-        $('#dateOnly').datetimepicker({
-            maxDate: new Date(),
             format: 'L',
         });
+        $('#dateOnly').datetimepicker({
+            maxDate: new Date().toDateString(),
+            format: 'L',
+        });
+
+        $.get('/check', {
+            date: new Date().toDateString()
+        }, function(data){
+            data.hours.forEach((element, index) => {
+                var radio = '<div class="radio col-md-6">'
+                    + '<label ' + (element[2] === 'taken' || element[2] === 'notavail' || element[3] === 'taken' || element[3] === 'notavail' ? 'class="text-danger"' : 'class="text-success"') + '><input type="radio" name="hour" value="' + index + '" ' + (element[2] === 'taken' || element[2] === 'notavail' || element[3] === 'taken' || element[3] === 'notavail' ? 'disabled class="text-danger"' : '') + ' required> ' +element[0] + ' - ' + element[1] + '</label>'
+                    + '</div>';
+
+                $('.times').append(radio);
+            });
+        })
+
+        $('#datetimepicker1').on('change.datetimepicker', function(e){
+            var date = e.date.month() + 1 + "/" +e.date.date() + "/" + e.date.year()
+            $('.times').html('');
+            $.get('/check', {
+                date: date
+            }, function(data){
+                console.log(data);
+                data.hours.forEach((element, index) => {
+                    // $('.times').append('<input type="radio" name="hour" value="' + index + '" '+ (element[2] === 'taken' ? 'disabled' : '') +'> ' +element[0] + ' - ' + element[1])
+
+                    var radio = '<div class="radio col-md-6">'
+                        + '<label ' + (element[2] === 'taken' || element[2] === 'notavail' || element[3] === 'taken' || element[3] === 'notavail' ? 'class="text-danger"' : 'class="text-success"') + '><input type="radio" name="hour" value="' + index + '" ' + (element[2] === 'taken' || element[2] === 'notavail' || element[3] === 'taken' || element[3] === 'notavail' ? 'disabled class="text-danger"' : '') + ' required> ' +element[0] + ' - ' + element[1] + '</label>'
+                        + '</div>';
+
+                    $('.times').append(radio);
+                });
+            })
+        })
         $('#selectPetBtn').click(function(){
             $('#selectPet').removeClass('d-none');
             $('#newPet').addClass('d-none');

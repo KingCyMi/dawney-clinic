@@ -42,6 +42,7 @@ class AppointmentController extends Controller{
             'date_birth' => ['required_without:pet_id', 'nullable', 'date'],
             'appointment_time' => 'required|date',
             'message' => 'nullable',
+            'hour' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -50,27 +51,34 @@ class AppointmentController extends Controller{
                         ->withInput();
         }
 
+        $hours = [
+            ['8:00', '9:00'],
+            ['9:00', '10:00'],
+            ['11:00', '12:00'],
+            ['13:00', '14:00'],
+            ['15:00', '16:00'],
+        ];
 
-        $start_time = Carbon::parse($request->appointment_time);
-        $end_time = Carbon::parse($request->appointment_time)->addMinutes(30);
+        $start_time = Carbon::parse($request->appointment_time . ' ' . $hours[$request->hour][0]);
+        $end_time = Carbon::parse($request->appointment_time . ' ' . $hours[$request->hour][1]);
 
         if($start_time->lt(Carbon::now())){
             return redirect()->route('appointment.create', ['', $request->pet_id ? '#pet' : '#new'])->with([
                 'status' => false,
-                'message' => 'Time must be in the future not in the past'
+                'message' => 'Schedule is not Available'
             ]);
         }
 
-        $check = Appointment::whereDate('appointment_start', '=', $start_time)->whereTime('appointment_end', '>=', $start_time->toTimeString())
-            ->whereTime('appointment_start', '<=', $end_time->toTimeString())
-            ->first();
+        // $check = Appointment::whereDate('appointment_start', '=', $start_time)->whereTime('appointment_end', '>=', $start_time->toTimeString())
+        //     ->whereTime('appointment_start', '<=', $end_time->toTimeString())
+        //     ->first();
 
-        if($check){
-            return redirect()->route('appointment.create')->with([
-                'status' => false,
-                'message' => 'Conflicts with another appointment please adjust the time. Thanks'
-            ]);
-        }
+        // if($check){
+        //     return redirect()->route('appointment.create')->with([
+        //         'status' => false,
+        //         'message' => 'Conflicts with another appointment please adjust the time. Thanks'
+        //     ]);
+        // }
 
         $weekMap = [
             1 => 'MO',
@@ -81,6 +89,7 @@ class AppointmentController extends Controller{
             6 => 'SA',
         ];
 
+
         if(!in_array($start_time->dayOfWeek, array_keys($weekMap))){
             return redirect()->route('appointment.create')->with([
                 'status' => false,
@@ -88,12 +97,12 @@ class AppointmentController extends Controller{
             ]);
         }
 
-        if(!($start_time->hour >= 8 && $start_time->hour <= 17)){
-            return redirect()->route('appointment.create')->with([
-                'status' => false,
-                'message' => 'The clinic is open at 8AM to 5PM'
-            ]);
-        }
+        // if(!($start_time->hour >= 8 && $start_time->hour <= 17)){
+        //     return redirect()->route('appointment.create')->with([
+        //         'status' => false,
+        //         'message' => 'The clinic is open at 8AM to 5PM'
+        //     ]);
+        // }
 
         $user = $request->user();
 
@@ -134,6 +143,43 @@ class AppointmentController extends Controller{
         return redirect()->route('appointment.create')->with([
             'status' => true,
             'message' => 'Your appointment has been booked!'
+        ]);
+
+    }
+
+    public function checkDate(Request $request){
+        $date = $request->date;
+        $carbonDate = Carbon::parse($date);
+
+        $hours = [
+            ['8:00', '9:00'],
+            ['9:00', '10:00'],
+            ['11:00', '12:00'],
+            ['13:00', '14:00'],
+            ['15:00', '16:00'],
+        ];
+
+        foreach($hours as $key => $hour){
+
+            $start = Carbon::parse($date . ' ' . $hour[0]);
+
+            if($start->lt(Carbon::now())){
+                array_push($hours[$key], 'notavail');
+            }
+
+
+            $check = Appointment::whereDate('appointment_start', '=', $carbonDate)->whereTime('appointment_end', '>=', Carbon::parse($date . ' ' . $hour[1])->toTimeString())
+                ->whereTime('appointment_start', '<=', Carbon::parse($date . ' ' . $hour[0])->toTimeString())
+                ->first();
+
+            if($check){
+                array_push($hours[$key], 'taken');
+            }
+        }
+
+        return response()->json([
+            'status' => true,
+            'hours' => $hours,
         ]);
 
     }

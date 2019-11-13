@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::group(['middleware' => ['verified']], function () {
     Route::get('/appoint', 'AppointmentController@create')->name('appointment.create');
     Route::post('/make/appoint', 'AppointmentController@store')->name('appointment.store');
+    Route::get('/check', 'AppointmentController@checkDate');
 
 
     Route::group(['prefix' => 'user', ], function () {

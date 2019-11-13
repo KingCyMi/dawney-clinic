@@ -109,7 +109,6 @@
             $('#addProduct').click(function(e){
                 e.preventDefault();
 
-
                 var productID = $('select[name="product"]').val();
 
                 if(productName == ''){
