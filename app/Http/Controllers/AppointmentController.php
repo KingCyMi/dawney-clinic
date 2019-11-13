@@ -57,7 +57,9 @@ class AppointmentController extends Controller{
             ['10:00', '11:00'],
             ['11:00', '12:00'],
             ['13:00', '14:00'],
+            ['14:00', '15:00'],
             ['15:00', '16:00'],
+            ['16:00', '17:00'],
         ];
 
         $start_time = Carbon::parse($request->appointment_time . ' ' . $hours[$request->hour][0]);
@@ -158,7 +160,9 @@ class AppointmentController extends Controller{
             ['10:00', '11:00'],
             ['11:00', '12:00'],
             ['13:00', '14:00'],
+            ['14:00', '15:00'],
             ['15:00', '16:00'],
+            ['16:00', '17:00'],
         ];
 
         foreach($hours as $key => $hour){
