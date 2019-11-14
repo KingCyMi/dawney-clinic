@@ -32,6 +32,14 @@
                                 <td scope="row" width="20%">Email:</td>
                                 <td>{{ $user->email }}</td>
                             </tr>
+                            <tr>
+                                <td scope="row" width="20%">Contact Number:</td>
+                                <td>{{ $user->owner->contact_number }}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" width="20%">Address:</td>
+                                <td>{{ $user->owner->address }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
