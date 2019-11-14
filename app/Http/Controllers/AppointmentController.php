@@ -41,6 +41,7 @@ class AppointmentController extends Controller{
             'species' => 'required_without:pet_id',
             'date_birth' => ['required_without:pet_id', 'nullable', 'date'],
             'appointment_time' => 'required|date',
+            'concern' => 'required',
             'message' => 'nullable',
             'hour' => 'required'
         ]);
@@ -138,7 +139,8 @@ class AppointmentController extends Controller{
             'pet_id' => $pet->id,
             'appointment_start' => $start_time,
             'appointment_end' => $end_time,
-            'reason' => $request->message
+            'reason' => $request->message,
+            'concern' => ($request->concern - 1)
         ]);
 
         $number = $user->owner->contact_number;

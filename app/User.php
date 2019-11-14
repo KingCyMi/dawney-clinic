@@ -40,4 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function owner(){
         return $this->hasOne(Owner::class);
     }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
+    }
 }

@@ -95,6 +95,12 @@ class AdminController extends Controller{
 
     }
 
+    public function userView($id){
+        $user = User::with('owner')->findOrFail($id);
+
+        return view('admin.user.view', compact('user'));
+    }
+
     public function userList(){
         $users = User::with('owner')->paginate(20);
 

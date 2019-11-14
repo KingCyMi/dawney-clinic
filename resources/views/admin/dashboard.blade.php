@@ -14,6 +14,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Appointment</th>
+                        <th>Concern</th>
                         <th>Message</th>
                     </tr>
                 </thead>
@@ -40,6 +41,9 @@
                                 </div>
                             </td>
                             <td class="agenda-message">
+                                {{ App\Appointment::CONCERN[$first->concern] }}
+                            </td>
+                            <td class="agenda-message">
                                 {{ $first->reason ?? '-' }}
                             </td>
                         </tr>
@@ -53,6 +57,9 @@
                                         <div class="agenda-event">
                                         <a href="{{ route('admin.patient.view', $appoint->pet->id) }}">{{ $appoint->user->owner->full_name }} - {{ $appoint->pet->name }}</a>
                                         </div>
+                                    </td>
+                                    <td class="agenda-message">
+                                        {{ App\Appointment::CONCERN[$appoint->concern] }}
                                     </td>
                                     <td class="agenda-message">
                                         {{ $first->reason }}

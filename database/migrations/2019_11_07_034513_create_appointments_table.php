@@ -18,6 +18,8 @@ class CreateAppointmentsTable extends Migration
             $table->integer('user_id');
             $table->integer('pet_id');
 
+            $table->integer('concern');
+
             $table->dateTime('appointment_start');
             $table->dateTime('appointment_end');
             $table->string('reason')->nullable();

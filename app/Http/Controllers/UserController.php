@@ -67,7 +67,7 @@ class UserController extends Controller{
     }
 
     public function appointments(){
-        $appointments = Appointment::where('user_id', auth()->id())->paginate(10);
+        $appointments = Appointment::where('user_id', auth()->id())->latest()->paginate(10);
 
         return view('user.appointment.list', compact('appointments'));
     }

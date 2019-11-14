@@ -74,6 +74,10 @@
                             <td>{{ $appointment->appointment_end->format('M d Y @ h:i a') }}</td>
                         </tr>
                         <tr>
+                            <td scope="row" width="20%">Concern:</td>
+                            <td>{{ App\Appointment::CONCERN[$appointment->concern] }}</td>
+                        </tr>
+                        <tr>
                             <td scope="row" width="20%">Message:</td>
                             <td>{{ $appointment->reason }}</td>
                         </tr>

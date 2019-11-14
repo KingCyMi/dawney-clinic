@@ -114,6 +114,20 @@
                         <div class="form-group col-md-12">
                             <hr>
                         </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Concern</label>
+                            <select name="concern" class="form-control @error('concern') is-invalid @enderror">
+                                <option value="">Select Concern</option>
+                                @foreach(App\Appointment::CONCERN as $concern)
+                                    <option value="{{ $loop->iteration }}">{{ $concern }}</option>
+                                @endforeach
+                            </select>
+                            @error('concern')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="">Appointment Time</label>
                             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
@@ -145,6 +159,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <hr>
+                            <i class="form-text text-muted">For surgery or emergency cases please visit to our clinic immediately</i>
                         </div>
                         <div class="form-group col-md-12">
                             @csrf
