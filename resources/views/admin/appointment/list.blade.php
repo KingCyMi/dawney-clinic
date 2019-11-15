@@ -25,7 +25,7 @@
                     <tr>
                         <td scope="row">{{ $appointment->appointment_start->format('M d Y') }}</td>
                         <td>{{ $appointment->user->owner->full_name }}</td>
-                        <td>{{ App\Appointment::CONCERN[$appointment->concern] }}</td>
+                        <td>{{ $appointment->concern_name }}</td>
                         <td>{{ $appointment->appointment_start->format('h:i A') }}</td>
                         <td>{{ $appointment->appointment_end->format('h:i A') }}</td>
                         <td>

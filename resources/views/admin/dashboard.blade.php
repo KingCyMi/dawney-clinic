@@ -41,7 +41,7 @@
                                 </div>
                             </td>
                             <td class="agenda-message">
-                                {{ App\Appointment::CONCERN[$first->concern] }}
+                                {{ $first->concern_name }}
                             </td>
                             <td class="agenda-message">
                                 {{ $first->reason ?? '-' }}
@@ -59,7 +59,7 @@
                                         </div>
                                     </td>
                                     <td class="agenda-message">
-                                        {{ App\Appointment::CONCERN[$appoint->concern] }}
+                                        {{ $appoint->concern_name }}
                                     </td>
                                     <td class="agenda-message">
                                         {{ $first->reason }}

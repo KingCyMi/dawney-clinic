@@ -121,7 +121,7 @@
                                 @foreach(App\Appointment::CONCERN as $concern)
                                     <option value="{{ $loop->iteration }}">{{ $concern }}</option>
                                 @endforeach
-                                <option value="10">Others</option>
+                                <option value="10" {{ old('concern') == 10 ? 'selected' : ''}}>Others</option>
                             </select>
                             @error('concern')
                                 <span class="invalid-feedback" role="alert">
@@ -131,8 +131,8 @@
                         </div>
                         <div class="form-group col-md-12 d-none" id="concernOthers">
                             <label for="">Other Concern?</label>
-                            <input type="text" name="concern_others" class="form-control @error('concern') is-invalid @enderror">
-                            @error('concern')
+                            <input type="text" name="concern_others" class="form-control @error('concern_others') is-invalid @enderror">
+                            @error('concern_others')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -193,6 +193,12 @@
                 $('#concernOthers').addClass('d-none')
             }
         })
+
+        $(document).ready(function() {
+            if($('select[name="concern"]').val() == 10){
+                $('#concernOthers').removeClass('d-none')
+            }
+        });
 
         $('#datetimepicker1').datetimepicker({
             minDate: new Date().toDateString(),

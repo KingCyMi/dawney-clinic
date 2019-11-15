@@ -42,6 +42,9 @@ class AppointmentController extends Controller{
             'date_birth' => ['required_without:pet_id', 'nullable', 'date'],
             'appointment_time' => 'required|date',
             'concern' => 'required',
+            'concern_others' => Rule::requiredIf(function () use ($request) {
+                return $request->concern == 10;
+            }),
             'message' => 'nullable',
             'hour' => 'required'
         ]);
@@ -140,7 +143,7 @@ class AppointmentController extends Controller{
             'appointment_start' => $start_time,
             'appointment_end' => $end_time,
             'reason' => $request->message,
-            'concern' => ($request->concern - 1)
+            'concern' => $request->concern == 10 ? $request->concern_others : ($request->concern - 1)
         ]);
 
         $number = $user->owner->contact_number;
