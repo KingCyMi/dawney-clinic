@@ -58,7 +58,7 @@
                             Appointments
                         </a>
                     </li>
-                    <li class="nav-item {{ in_array(Route::currentRouteName(), [
+                    {{-- <li class="nav-item {{ in_array(Route::currentRouteName(), [
                         'admin.inventory.list',
                         'admin.inventory.create',
                         'admin.inventory.update',
@@ -81,7 +81,7 @@
                         <a href="{{ route('admin.order.list') }}" class="nav-link">
                             Orders
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">

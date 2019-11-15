@@ -75,23 +75,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/{id}', 'AdminController@patientView')->name('admin.patient.view');
     });
 
-    Route::group(['prefix' => 'inventory'], function () {
-        Route::get('/', 'AdminController@inventoryList')->name('admin.inventory.list');
-        Route::get('/create', 'AdminController@inventoryCreate')->name('admin.inventory.create');
-        Route::post('/create', 'AdminController@inventoryCreateStore')->name('admin.inventory.create');
+    // Route::group(['prefix' => 'inventory'], function () {
+    //     Route::get('/', 'AdminController@inventoryList')->name('admin.inventory.list');
+    //     Route::get('/create', 'AdminController@inventoryCreate')->name('admin.inventory.create');
+    //     Route::post('/create', 'AdminController@inventoryCreateStore')->name('admin.inventory.create');
 
-        Route::get('/{id}', 'AdminController@inventoryUpdate')->name('admin.inventory.update');
-        Route::post('/{id}', 'AdminController@inventoryUpdatePost')->name('admin.inventory.update');
-    });
+    //     Route::get('/{id}', 'AdminController@inventoryUpdate')->name('admin.inventory.update');
+    //     Route::post('/{id}', 'AdminController@inventoryUpdatePost')->name('admin.inventory.update');
+    // });
 
-    Route::group(['prefix' => 'purchase'], function () {
-        Route::get('/', 'AdminController@purchaseCreate')->name('admin.purchase.create');
-        Route::post('/', 'AdminController@purchaseCreatePost')->name('admin.purchase.store');
-    });
+    // Route::group(['prefix' => 'purchase'], function () {
+    //     Route::get('/', 'AdminController@purchaseCreate')->name('admin.purchase.create');
+    //     Route::post('/', 'AdminController@purchaseCreatePost')->name('admin.purchase.store');
+    // });
 
-    Route::group(['prefix' => 'order'], function () {
-        Route::get('/', 'AdminController@orderList')->name('admin.order.list');
-        Route::get('/{id}', 'AdminController@orderView')->name('admin.order.view');
-    });
+    // Route::group(['prefix' => 'order'], function () {
+    //     Route::get('/', 'AdminController@orderList')->name('admin.order.list');
+    //     Route::get('/{id}', 'AdminController@orderView')->name('admin.order.view');
+    // });
 
 });
